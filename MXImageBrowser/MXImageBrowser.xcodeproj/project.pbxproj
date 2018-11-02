@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		320E36296682F62FBCC920B0 /* libPods-MXImageBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DA53DB2B49DEF03A56CDC62 /* libPods-MXImageBrowser.a */; };
+		5B2D724F218C3F9A003DF244 /* 1234567@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B2D724E218C3F9A003DF244 /* 1234567@2x.png */; };
 		5BFCF5DD218AAA7F00302BD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5DC218AAA7F00302BD5 /* AppDelegate.m */; };
 		5BFCF5E0218AAA7F00302BD5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5DF218AAA7F00302BD5 /* ViewController.m */; };
 		5BFCF5E3218AAA7F00302BD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BFCF5E1218AAA7F00302BD5 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		10A7D8AC76827DC48678D0FE /* Pods-MXImageBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MXImageBrowser.debug.xcconfig"; path = "Target Support Files/Pods-MXImageBrowser/Pods-MXImageBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		4DA53DB2B49DEF03A56CDC62 /* libPods-MXImageBrowser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MXImageBrowser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2D724D218C1BDA003DF244 /* MXBrowserDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXBrowserDefine.h; sourceTree = "<group>"; };
+		5B2D724E218C3F9A003DF244 /* 1234567@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1234567@2x.png"; sourceTree = "<group>"; };
 		5BFCF5D8218AAA7F00302BD5 /* MXImageBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MXImageBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFCF5DB218AAA7F00302BD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5BFCF5DC218AAA7F00302BD5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				5BFCF5F2218AAB5000302BD5 /* MXImageBrowser.m */,
 				5BFCF5E1218AAA7F00302BD5 /* Main.storyboard */,
 				5BFCF5E4218AAA8000302BD5 /* Assets.xcassets */,
+				5B2D724E218C3F9A003DF244 /* 1234567@2x.png */,
 				5BFCF5E6218AAA8000302BD5 /* LaunchScreen.storyboard */,
 				5BFCF5E9218AAA8000302BD5 /* Info.plist */,
 				5BFCF5EA218AAA8000302BD5 /* main.m */,
@@ -185,6 +188,7 @@
 			files = (
 				5BFCF5E8218AAA8000302BD5 /* LaunchScreen.storyboard in Resources */,
 				5BFCF5E5218AAA8000302BD5 /* Assets.xcassets in Resources */,
+				5B2D724F218C3F9A003DF244 /* 1234567@2x.png in Resources */,
 				5BFCF602218B0C6400302BD5 /* 2014120107280906.jpg in Resources */,
 				5BFCF5E3218AAA7F00302BD5 /* Main.storyboard in Resources */,
 			);

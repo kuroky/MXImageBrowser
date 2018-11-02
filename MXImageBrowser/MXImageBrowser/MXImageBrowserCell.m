@@ -8,6 +8,8 @@
 
 #import "MXImageBrowserCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Masonry.h"
+#import "MXBrowserDefine.h"
 
 @interface MXImageBrowserCell () <UIScrollViewDelegate, UIGestureRecognizerDelegate> {
     
@@ -19,11 +21,13 @@
     BOOL _isGestureInteraction;
     CGPoint _gestureInteractionStartPoint;
     
-    UIInterfaceOrientation _statusBarOrientationBefore;
 }
 
 @property (nonatomic, strong) UIScrollView *mainContentView;
 @property (nonatomic, strong) UIImageView *mainImageView;
+@property (nonatomic, strong) CAShapeLayer *progressLayer;
+@property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, assign) CGFloat maxHeight;
 
 @end
 
@@ -33,12 +37,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self initVars];
-        
-        [self.contentView addSubview:self.mainContentView];
-        [self.mainContentView addSubview:self.mainImageView];
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"2014120107280906" ofType:@"jpg"];
-        UIImage *image = [UIImage imageWithContentsOfFile:path];
-        self.mainImageView.image = image;
+        [self setupUI];
         [self addGesture];
     }
     return self;
@@ -55,14 +54,50 @@
     _isZooming = NO;
     _isDragging = NO;
     _bodyIsInCenter = YES;
+    self.progressLayer.strokeEnd = 0;
     _containerSize = self.frame.size;
     _gestureInteractionStartPoint = CGPointZero;
-    _statusBarOrientationBefore = UIInterfaceOrientationPortrait;
+}
+
+- (void)setupUI {
+    [self.contentView addSubview:self.mainContentView];
+    [self.mainContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY);
+        make.width.mas_equalTo(414);
+        make.height.mas_equalTo(800);
+    }];
+    
+    [self.mainContentView addSubview:self.mainImageView];
+    [self.mainImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        //make.leading.equalTo(self.mas_leading);
+        //make.trailing.equalTo(self.mas_trailing);
+        //make.top.equalTo(self.mas_top);
+        //make.bottom.equalTo(self.mas_bottom);
+        make.centerX.equalTo(self.mainContentView.mas_centerX);
+        make.centerY.equalTo(self.mainContentView.mas_centerY);
+        make.width.mas_equalTo(414);
+        make.height.mas_equalTo(800);
+    }];
+    [self.layer addSublayer:self.progressLayer];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.progressLayer.frame.origin.x > 0) {
+        return;
+    }
+    
+    CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
+    CGRect frame = self.progressLayer.frame;
+    frame.origin.x = center.x - CGRectGetWidth(frame) / 2.0f;
+    frame.origin.y = center.y - CGRectGetHeight(frame) / 2.0f;
+    self.progressLayer.frame = frame;
 }
 
 - (UIScrollView *)mainContentView {
     if (!_mainContentView) {
-        _mainContentView = [UIScrollView new];
+        _mainContentView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _mainContentView.delegate = self;
         _mainContentView.showsHorizontalScrollIndicator = NO;
         _mainContentView.showsVerticalScrollIndicator = NO;
@@ -72,7 +107,6 @@
         _mainContentView.alwaysBounceHorizontal = NO;
         _mainContentView.alwaysBounceVertical = NO;
         _mainContentView.layer.masksToBounds = NO;
-        _mainContentView.frame = self.contentView.frame;
         if (@available(iOS 11.0, *)) {
             _mainContentView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -82,13 +116,104 @@
 
 - (UIImageView *)mainImageView {
     if (!_mainImageView) {
-        _mainImageView = [UIImageView new];
+        _mainImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _mainImageView.contentMode = UIViewContentModeScaleAspectFill;
         _mainImageView.layer.masksToBounds = YES;
-        _mainImageView.frame = self.contentView.frame;
     }
-    _mainImageView.backgroundColor = [UIColor blackColor];
     return _mainImageView;
+}
+
+- (CAShapeLayer *)progressLayer {
+    if (!_progressLayer) {
+        _progressLayer = [CAShapeLayer layer];
+        _progressLayer.frame = CGRectMake(0, 0, 40, 40);
+        _progressLayer.cornerRadius = MIN(CGRectGetWidth(_progressLayer.bounds) / 2.0f, CGRectGetHeight(_progressLayer.bounds) / 2.0f);
+        _progressLayer.lineWidth = 4;
+        _progressLayer.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor;
+        _progressLayer.fillColor = [UIColor clearColor].CGColor;
+        _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _progressLayer.lineCap = kCALineCapRound;
+        _progressLayer.strokeStart = 0;
+        _progressLayer.strokeEnd = 0;
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(_progressLayer.bounds, 7, 7) cornerRadius:_progressLayer.cornerRadius - 7];
+        _progressLayer.path = path.CGPath;
+        _progressLayer.hidden = YES;
+    }
+    return _progressLayer;
+}
+
+- (CGFloat)maxWidth {
+    static dispatch_once_t onceToken;
+    static CGFloat width;
+    dispatch_once(&onceToken, ^{
+        width = [UIScreen mainScreen].scale * self.frame.size.width;
+    });
+    return width;
+}
+
+- (CGFloat)maxHeight {
+    static dispatch_once_t onceToken;
+    static CGFloat height;
+    dispatch_once(&onceToken, ^{
+        height = [UIScreen mainScreen].scale * self.frame.size.height;
+    });
+    return height;
+}
+
+- (void)configWithImageUrl:(NSString *)url {
+    mx_Weakify(self)
+    [self.mainImageView sd_setImageWithURL:[NSURL URLWithString:url]
+                          placeholderImage:nil
+                                   options:SDWebImageRetryFailed | SDWebImageAvoidAutoSetImage
+                                  progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+//                                      if (strong_self.dismissing || !strong_self.view.window) {
+//                                          strong_self.progressLayer.hidden = YES;
+//                                          return;
+//                                      }
+                                      CGFloat progress = (receivedSize * 1.0f) / (expectedSize * 1.0f);
+                                      if (0.0f >= progress || progress >= 1.0f) {
+                                          mx_Weakself.progressLayer.hidden = YES;
+                                          return;
+                                      }
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          mx_Weakself.progressLayer.hidden = NO;
+                                          mx_Weakself.progressLayer.strokeEnd = progress;
+                                      });
+                                  }
+                                 completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                                     //NSLog(@"%@", NSStringFromCGSize(image.size));
+                                     [mx_Weakself resizeView:image];
+                                 }];
+}
+
+- (void)resizeView:(UIImage *)image {
+    // 1024 * 768
+    // 414 * 828
+    
+    CGFloat imgWidth = image.scale * image.size.width;
+    CGFloat imgHeight = image.scale * image.size.height;
+    CGFloat width = 0;
+    CGFloat height = 0;
+    if (imgWidth > imgHeight) {
+        width = (imgWidth > self.maxWidth) ? self.maxWidth : imgWidth;
+        height = width * imgHeight / imgWidth;
+    }
+    else {
+        height = (imgHeight > self.maxHeight) ? self.maxHeight : imgHeight;
+        width = height * imgWidth / imgHeight;
+    }
+    
+    width = width / [UIScreen mainScreen].scale;
+    height = height / [UIScreen mainScreen].scale;
+    
+    [self.mainImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(width);
+        make.height.mas_equalTo(height);
+    }];
+    
+    [self.mainImageView setNeedsLayout];
+    //[self.mainImageView layoutIfNeeded];
+    self.mainImageView.image = image;
 }
 
 - (void)addGesture {
@@ -149,8 +274,7 @@
             
             BOOL shouldDismiss = distanceArrive || velocityArrive;
             if (shouldDismiss) {
-                //self.yb_browserDismissBlock();
-                [self restoreGestureInteractionWithDuration:0.15];
+                self.mxBrowserCellDismissBlock();
             } else {
                 [self restoreGestureInteractionWithDuration:0.15];//self->_giProfile.restoreDuration
             }
@@ -169,25 +293,21 @@
         BOOL shouldStart = startPointValid && !_isGestureInteraction && (upArrive || downArrive) && distanceArrive && self->_bodyIsInCenter && !self->_isZooming;
         // START
         if (shouldStart) {
-            if ([UIApplication sharedApplication].statusBarOrientation != self->_statusBarOrientationBefore) {
-                //self.yb_browserDismissBlock();
-            } else {
-                //[self hideTailoringImageView];
-                
-                _gestureInteractionStartPoint = point;
-                
-                CGRect startFrame = self.mainContentView.frame;
-                CGFloat anchorX = point.x / startFrame.size.width,
-                anchorY = point.y / startFrame.size.height;
-                self.mainContentView.layer.anchorPoint = CGPointMake(anchorX, anchorY);
-                self.mainContentView.userInteractionEnabled = NO;
-                self.mainContentView.scrollEnabled = NO;
-                
-                //self.yb_browserScrollEnabledBlock(NO);
-                //self.yb_browserToolBarHiddenBlock(YES);
-                
-                _isGestureInteraction = YES;
-            }
+            //[self hideTailoringImageView];
+            
+            _gestureInteractionStartPoint = point;
+            
+            CGRect startFrame = self.mainContentView.frame;
+            CGFloat anchorX = point.x / startFrame.size.width,
+            anchorY = point.y / startFrame.size.height;
+            self.mainContentView.layer.anchorPoint = CGPointMake(anchorX, anchorY);
+            self.mainContentView.userInteractionEnabled = NO;
+            self.mainContentView.scrollEnabled = NO;
+            
+            self.mxBrowserCellScrollEnable(NO);
+            //self.yb_browserToolBarHiddenBlock(YES);
+            
+            _isGestureInteraction = YES;
         }
         
         // CHNAGE
@@ -215,7 +335,7 @@
         self.mainContentView.transform = CGAffineTransformIdentity;
     };
     void (^completion)(BOOL finished) = ^(BOOL finished){
-        //self.yb_browserScrollEnabledBlock(YES);
+        self.mxBrowserCellScrollEnable(YES);
         //self.yb_browserToolBarHiddenBlock(NO);
         
         self.mainContentView.userInteractionEnabled = YES;

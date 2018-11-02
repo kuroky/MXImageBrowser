@@ -9,10 +9,11 @@
 #import "MXImageContentView.h"
 #import "MXImageBrowserCell.h"
 #import "MXBrowserViewLayout.h"
+#import "MXBrowserDefine.h"
 
 static NSString *const kMXImageContentViewCellId   =   @"MXImageContentViewCellId";
 
-@interface MXImageContentView () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MXImageContentView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray <NSString *> *list;
 
@@ -57,6 +58,10 @@ static NSString *const kMXImageContentViewCellId   =   @"MXImageContentViewCellI
     [super layoutSubviews];
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return self.frame.size;
+}
+
 //MARK:- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.list.count;
@@ -64,10 +69,14 @@ static NSString *const kMXImageContentViewCellId   =   @"MXImageContentViewCellI
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MXImageBrowserCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kMXImageContentViewCellId forIndexPath:indexPath];
-    //cell.backgroundColor = [UIColor brownColor];
-    __weak typeof(self) weak_self = self;
+    [cell configWithImageUrl:self.list[indexPath.item]];
+    mx_Weakify(self)
     cell.mxBrowserCellDismissBlock = ^{
-        weak_self.mxContentDismissBlock ? weak_self.mxContentDismissBlock() : nil;
+        mx_Weakself.mxContentDismissBlock ? mx_Weakself.mxContentDismissBlock() : nil;
+    };
+    
+    cell.mxBrowserCellScrollEnable = ^(BOOL enable) {
+        mx_Weakself.scrollEnabled = enable;
     };
     return cell;
 }

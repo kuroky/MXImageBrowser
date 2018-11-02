@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MXImageContentView : UICollectionView
 
+/**
+ dismiss browser
+ */
 @property (nonatomic, copy) void (^mxContentDismissBlock)(void);
 
 @property (nonatomic, weak) UIPageControl *pageControl;

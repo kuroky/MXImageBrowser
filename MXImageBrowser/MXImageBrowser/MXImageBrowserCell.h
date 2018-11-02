@@ -12,7 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MXImageBrowserCell : UICollectionViewCell
 
+/**
+ dismiss cell
+ */
 @property (nonatomic, copy) void (^mxBrowserCellDismissBlock)(void);
+
+/**
+ 是否允许其他cell滑动
+ */
+@property (nonatomic, copy) void (^mxBrowserCellScrollEnable)(BOOL enable);
+
+- (void)configWithImageUrl:(NSString *)url;
 
 @end
 
