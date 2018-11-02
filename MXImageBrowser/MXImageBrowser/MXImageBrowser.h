@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MXImageBrowser : UIViewController
 
+@property (nonatomic, weak) UIView *indexView;
+
+@property (nonatomic, assign) NSInteger index;
+
+@property (nonatomic, strong) NSArray <NSString *> *imageUrls;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,11 +15,17 @@
 		5BFCF5E8218AAA8000302BD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BFCF5E6218AAA8000302BD5 /* LaunchScreen.storyboard */; };
 		5BFCF5EB218AAA8000302BD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5EA218AAA8000302BD5 /* main.m */; };
 		5BFCF5F3218AAB5000302BD5 /* MXImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5F2218AAB5000302BD5 /* MXImageBrowser.m */; };
+		5BFCF5F7218AD6A000302BD5 /* MXTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5F6218AD6A000302BD5 /* MXTransitionManager.m */; };
+		5BFCF5FA218AF98200302BD5 /* MXImageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5F9218AF98200302BD5 /* MXImageContentView.m */; };
+		5BFCF5FD218AFDE500302BD5 /* MXImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5FC218AFDE500302BD5 /* MXImageBrowserCell.m */; };
+		5BFCF600218B04DA00302BD5 /* MXBrowserViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCF5FF218B04DA00302BD5 /* MXBrowserViewLayout.m */; };
+		5BFCF602218B0C6400302BD5 /* 2014120107280906.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BFCF601218B0C6300302BD5 /* 2014120107280906.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		10A7D8AC76827DC48678D0FE /* Pods-MXImageBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MXImageBrowser.debug.xcconfig"; path = "Target Support Files/Pods-MXImageBrowser/Pods-MXImageBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		4DA53DB2B49DEF03A56CDC62 /* libPods-MXImageBrowser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MXImageBrowser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B2D724D218C1BDA003DF244 /* MXBrowserDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXBrowserDefine.h; sourceTree = "<group>"; };
 		5BFCF5D8218AAA7F00302BD5 /* MXImageBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MXImageBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFCF5DB218AAA7F00302BD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5BFCF5DC218AAA7F00302BD5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -32,6 +38,15 @@
 		5BFCF5EA218AAA8000302BD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5BFCF5F1218AAB5000302BD5 /* MXImageBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXImageBrowser.h; sourceTree = "<group>"; };
 		5BFCF5F2218AAB5000302BD5 /* MXImageBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXImageBrowser.m; sourceTree = "<group>"; };
+		5BFCF5F5218AD6A000302BD5 /* MXTransitionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXTransitionManager.h; sourceTree = "<group>"; };
+		5BFCF5F6218AD6A000302BD5 /* MXTransitionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXTransitionManager.m; sourceTree = "<group>"; };
+		5BFCF5F8218AF98200302BD5 /* MXImageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXImageContentView.h; sourceTree = "<group>"; };
+		5BFCF5F9218AF98200302BD5 /* MXImageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXImageContentView.m; sourceTree = "<group>"; };
+		5BFCF5FB218AFDE500302BD5 /* MXImageBrowserCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXImageBrowserCell.h; sourceTree = "<group>"; };
+		5BFCF5FC218AFDE500302BD5 /* MXImageBrowserCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXImageBrowserCell.m; sourceTree = "<group>"; };
+		5BFCF5FE218B04DA00302BD5 /* MXBrowserViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXBrowserViewLayout.h; sourceTree = "<group>"; };
+		5BFCF5FF218B04DA00302BD5 /* MXBrowserViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXBrowserViewLayout.m; sourceTree = "<group>"; };
+		5BFCF601218B0C6300302BD5 /* 2014120107280906.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2014120107280906.jpg; sourceTree = "<group>"; };
 		B37D21EB3A4BC518CF64CEC4 /* Pods-MXImageBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MXImageBrowser.release.xcconfig"; path = "Target Support Files/Pods-MXImageBrowser/Pods-MXImageBrowser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,10 +91,20 @@
 		5BFCF5DA218AAA7F00302BD5 /* MXImageBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				5BFCF601218B0C6300302BD5 /* 2014120107280906.jpg */,
 				5BFCF5DB218AAA7F00302BD5 /* AppDelegate.h */,
 				5BFCF5DC218AAA7F00302BD5 /* AppDelegate.m */,
 				5BFCF5DE218AAA7F00302BD5 /* ViewController.h */,
 				5BFCF5DF218AAA7F00302BD5 /* ViewController.m */,
+				5B2D724D218C1BDA003DF244 /* MXBrowserDefine.h */,
+				5BFCF5FE218B04DA00302BD5 /* MXBrowserViewLayout.h */,
+				5BFCF5FF218B04DA00302BD5 /* MXBrowserViewLayout.m */,
+				5BFCF5FB218AFDE500302BD5 /* MXImageBrowserCell.h */,
+				5BFCF5FC218AFDE500302BD5 /* MXImageBrowserCell.m */,
+				5BFCF5F8218AF98200302BD5 /* MXImageContentView.h */,
+				5BFCF5F9218AF98200302BD5 /* MXImageContentView.m */,
+				5BFCF5F5218AD6A000302BD5 /* MXTransitionManager.h */,
+				5BFCF5F6218AD6A000302BD5 /* MXTransitionManager.m */,
 				5BFCF5F1218AAB5000302BD5 /* MXImageBrowser.h */,
 				5BFCF5F2218AAB5000302BD5 /* MXImageBrowser.m */,
 				5BFCF5E1218AAA7F00302BD5 /* Main.storyboard */,
@@ -160,6 +185,7 @@
 			files = (
 				5BFCF5E8218AAA8000302BD5 /* LaunchScreen.storyboard in Resources */,
 				5BFCF5E5218AAA8000302BD5 /* Assets.xcassets in Resources */,
+				5BFCF602218B0C6400302BD5 /* 2014120107280906.jpg in Resources */,
 				5BFCF5E3218AAA7F00302BD5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,8 +224,12 @@
 			files = (
 				5BFCF5E0218AAA7F00302BD5 /* ViewController.m in Sources */,
 				5BFCF5EB218AAA8000302BD5 /* main.m in Sources */,
+				5BFCF600218B04DA00302BD5 /* MXBrowserViewLayout.m in Sources */,
 				5BFCF5DD218AAA7F00302BD5 /* AppDelegate.m in Sources */,
+				5BFCF5FD218AFDE500302BD5 /* MXImageBrowserCell.m in Sources */,
 				5BFCF5F3218AAB5000302BD5 /* MXImageBrowser.m in Sources */,
+				5BFCF5F7218AD6A000302BD5 /* MXTransitionManager.m in Sources */,
+				5BFCF5FA218AF98200302BD5 /* MXImageContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
